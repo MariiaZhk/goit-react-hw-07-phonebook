@@ -6,13 +6,13 @@ import {
 import { useDispatch } from 'react-redux';
 import { deleteContactThunk } from '../../redux/operations';
 
-export const ContactsItem = ({ name, number, id }) => {
+export const ContactsItem = ({ name, phone, id }) => {
   const dispatch = useDispatch();
 
   return (
     <ContactItem>
       <ContactText>{name}: </ContactText>
-      <ContactText>{number}</ContactText>
+      <ContactText>{phone}: </ContactText>
       <DeleteItemButton
         type="button"
         onClick={() => dispatch(deleteContactThunk(id))}

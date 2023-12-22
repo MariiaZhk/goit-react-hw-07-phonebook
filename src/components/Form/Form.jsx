@@ -1,42 +1,33 @@
 import { useState } from 'react';
-// import { nanoid } from 'nanoid';
 import { Button, FormStyled, Input, Label } from 'components/Form/Form.styled';
-import { getItems } from '../../redux/phonebookSlice';
-// import { createContactAction } from '../../redux/phonebookSlice';
+import { getItems } from '../../redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContactThunk } from '../../redux/operations';
 
 export const Form = () => {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
 
   const dispatch = useDispatch();
   const items = useSelector(getItems);
 
-  // const handleChange = ({ target: { name, value } }) => {
-  //   switch (name) {
-  //     case 'name':
-  //       setName(value);
-  //       break;
-  //     case 'number':
-  //       setNumber(value);
-  //       break;
+  const handleChange = ({ target: { name, value } }) => {
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+      case 'phone':
+        setPhone(value);
+        break;
 
-  //     default:
-  //       break;
-  //   }
-  // };
-
-  const handleChangeName = e => {
-    setName(e.target.value);
-  };
-  const handleChangePhone = e => {
-    setNumber(e.target.value);
+      default:
+        break;
+    }
   };
 
   const handleSubmit = event => {
     event.preventDefault();
-    const newContact = { name, phone: number };
+    const newContact = { name, phone };
     if (items.some(item => item.name === name)) {
       alert(`Contact name ${name} already exists!`);
       resetForm();
@@ -48,7 +39,7 @@ export const Form = () => {
 
   const resetForm = () => {
     setName('');
-    setNumber('');
+    setPhone('');
   };
 
   return (
@@ -61,18 +52,18 @@ export const Form = () => {
           id="name"
           value={name}
           required
-          onChange={handleChangeName}
+          onChange={handleChange}
         />
       </Label>
-      <Label htmlFor="number">
+      <Label htmlFor="phone">
         Number
         <Input
           type="tel"
-          name="number"
-          id="number"
-          value={number}
+          name="phone"
+          id="phone"
+          value={phone}
           required
-          onChange={handleChangePhone}
+          onChange={handleChange}
         />
       </Label>
       <Button type="submit">Add contact</Button>

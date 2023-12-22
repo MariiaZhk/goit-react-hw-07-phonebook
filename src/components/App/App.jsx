@@ -5,7 +5,7 @@ import { Section } from '../SectionStyled/Section.styled';
 import { Subtitle, Title } from './App.styled';
 import { ContactsListWrap } from 'components/ContactsList/ContactsList.styled';
 import { useSelector } from 'react-redux';
-import { getIsLoading, getError } from '../../redux/phonebookSlice';
+import { getIsLoading, getError } from '../../redux/selectors';
 
 export const App = () => {
   const isLoading = useSelector(getIsLoading);
