@@ -36,13 +36,30 @@ const phonebookSlice = createSlice({
         state.contacts.error = payload;
       })
 
+      .addCase(deleteContactThunk.pending, state => {
+        state.contacts.isLoading = true;
+      })
+
       .addCase(deleteContactThunk.fulfilled, (state, { payload }) => {
+        state.contacts.isLoading = false;
         state.contacts.items = state.contacts.items.filter(
           item => item.id !== payload.id
         );
       })
+      .addCase(deleteContactThunk.rejected, (state, { payload }) => {
+        state.contacts.isLoading = false;
+        state.contacts.error = payload;
+      })
+      .addCase(addContactThunk.pending, state => {
+        state.contacts.isLoading = true;
+      })
       .addCase(addContactThunk.fulfilled, (state, { payload }) => {
+        state.contacts.isLoading = false;
         state.contacts.items.push(payload);
+      })
+      .addCase(addContactThunk.rejected, (state, { payload }) => {
+        state.contacts.isLoading = false;
+        state.contacts.error = payload;
       });
   },
 });
@@ -50,9 +67,3 @@ const phonebookSlice = createSlice({
 export const { setFilterAction } = phonebookSlice.actions;
 
 export const phonebookReducer = phonebookSlice.reducer;
-
-// export const getContacts = state => state.phonebook.contacts;
-// export const getItems = state => state.phonebook.contacts.items;
-// export const getIsLoading = state => state.phonebook.contacts.isLoading;
-// export const getError = state => state.phonebook.contacts.error;
-// export const getFilter = state => state.phonebook.filter;

@@ -2,10 +2,11 @@ import { Form } from '../Form/Form';
 import { ContactsList } from '../ContactsList/ContactsList';
 import { Filter } from '../Filter/Filter';
 import { Section } from '../SectionStyled/Section.styled';
-import { Subtitle, Title } from './App.styled';
+import { Loader, Subtitle, Title } from './App.styled';
 import { ContactsListWrap } from 'components/ContactsList/ContactsList.styled';
 import { useSelector } from 'react-redux';
 import { getIsLoading, getError } from '../../redux/selectors';
+import { Error } from 'components/Error/Error';
 
 export const App = () => {
   const isLoading = useSelector(getIsLoading);
@@ -18,8 +19,8 @@ export const App = () => {
       <ContactsListWrap>
         <Subtitle>Contacts</Subtitle>
         <Filter />
-        {isLoading && <h1>Loading...</h1>}
-        {error ? <h1>Error...</h1> : <ContactsList />}
+        {isLoading && <Loader>L o a d i n g ...</Loader>}
+        {error ? <Error /> : <ContactsList />}
       </ContactsListWrap>
     </Section>
   );

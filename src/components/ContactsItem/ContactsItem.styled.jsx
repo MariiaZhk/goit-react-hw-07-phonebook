@@ -2,12 +2,11 @@ import styled from 'styled-components';
 
 export const ContactItem = styled.li`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  min-width: 300px;
   gap: ${props => props.theme.spacing(8)};
   padding: 10px;
+  border: 1px solid black;
 `;
 
 export const DeleteItemButton = styled.button`
@@ -16,7 +15,7 @@ export const DeleteItemButton = styled.button`
   font-size: ${props => props.theme.fontSizes.medium};
   font-weight: ${props => props.theme.fontWeights.semiBold};
   color: ${props => props.theme.colors.white};
-  width: 150px;
+  min-width: 150px;
   height: 40px;
   transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s,
     box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s,

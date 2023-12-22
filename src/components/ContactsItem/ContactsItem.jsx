@@ -11,8 +11,9 @@ export const ContactsItem = ({ name, phone, id }) => {
 
   return (
     <ContactItem>
-      <ContactText>{name}: </ContactText>
-      <ContactText>{phone}: </ContactText>
+      <ContactText>
+        <b>{name}</b> : {phone}
+      </ContactText>
       <DeleteItemButton
         type="button"
         onClick={() => dispatch(deleteContactThunk(id))}
