@@ -1,29 +1,57 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-const contactsInitialState = {
-  contacts: [],
-  filter: '',
-};
+import {
+  addContactThunk,
+  deleteContactThunk,
+  fetchContactsThunk,
+} from './operations';
 
 const phonebookSlice = createSlice({
   name: 'phonebook',
-  initialState: contactsInitialState,
+  initialState: {
+    contacts: {
+      items: [],
+      isLoading: false,
+      error: null,
+    },
+    filter: '',
+  },
+
   reducers: {
-    createContactAction: (state, { payload }) => {
-      state.contacts.push(payload);
-    },
-    deleteContactAction: (state, { payload }) => {
-      state.contacts = state.contacts.filter(contact => contact.id !== payload);
-    },
     setFilterAction: (state, { payload }) => {
       state.filter = payload;
     },
   },
+
+  extraReducers: builder => {
+    builder
+      .addCase(fetchContactsThunk.fulfilled, (state, { payload }) => {
+        state.contacts.isLoading = false;
+        state.contacts.items = payload;
+      })
+      .addCase(deleteContactThunk.fulfilled, (state, { payload }) => {
+        state.contacts.items = state.contacts.items.filter(
+          item => item.id !== payload.id
+        );
+      })
+      .addCase(addContactThunk.fulfilled, (state, { payload }) => {
+        state.contacts.items.push(payload);
+      })
+      .addCase(fetchContactsThunk.pending, state => {
+        state.contacts.isLoading = true;
+      })
+      .addCase(fetchContactsThunk.rejected, (state, { payload }) => {
+        state.contacts.isLoading = false;
+        state.contacts.error = payload;
+      });
+  },
 });
 
-export const contactsValue = state => state.phonebook.contacts;
-export const filterValue = state => state.phonebook.filter;
+export const { setFilterAction } = phonebookSlice.actions;
 
-export const { createContactAction, deleteContactAction, setFilterAction } =
-  phonebookSlice.actions;
 export const phonebookReducer = phonebookSlice.reducer;
+
+export const getContacts = state => state.phonebook.contacts;
+export const getItems = state => state.phonebook.contacts.items;
+export const getIsLoading = state => state.phonebook.contacts.isLoading;
+export const getError = state => state.phonebook.contacts.error;
+export const getFilter = state => state.phonebook.filter;

@@ -1,14 +1,24 @@
 import { ContactsItem } from 'components/ContactsItem/ContactsItem';
 import { ContactsListStyled, Warning } from './ContactsList.styled';
-import { contactsValue, filterValue } from '../../redux/phonebookSlice';
-import { useSelector } from 'react-redux';
+import { getContacts, getFilter, getItems } from '../../redux/phonebookSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchContactsThunk } from '../../redux/operations';
 
 export const ContactsList = () => {
-  const contacts = useSelector(contactsValue);
-  const filter = useSelector(filterValue);
+  const items = useSelector(getItems);
+  const contacts = useSelector(getContacts);
+  console.log(contacts);
+  const filter = useSelector(getFilter);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchContactsThunk());
+  }, [dispatch]);
 
   const getFilteredData = () => {
-    return contacts.filter(el =>
+    return items.filter(el =>
       el.name.toLowerCase().includes(filter.toLowerCase())
     );
   };
