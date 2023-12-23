@@ -21,9 +21,9 @@ export const Loader = styled.h2`
   color: #09b341;
   text-align: center;
 `;
-export const ErrorStyled = styled.h2`
+export const ErrorStyled = styled.div`
   margin-top: 20px;
-  font-size: ${props => props.theme.fontSizes.extraLarge};
+  font-size: ${props => props.theme.fontSizes.large};
   font-weight: ${props => props.theme.fontWeights.extraBold};
   color: #de200b;
   text-align: center;
