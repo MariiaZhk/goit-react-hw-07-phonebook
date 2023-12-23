@@ -7,7 +7,7 @@ export const Error = () => {
 
   return (
     <ErrorStyled>
-      <p>Sorry... {error}</p>
+      <h2>Sorry... {error}</h2>
     </ErrorStyled>
   );
 };
