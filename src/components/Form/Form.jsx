@@ -28,7 +28,7 @@ export const Form = () => {
   const handleSubmit = event => {
     event.preventDefault();
     const newContact = { name, phone };
-    if (items.some(item => item.name === name)) {
+    if (items.some(item => item.name.toLowerCase() === name.toLowerCase())) {
       alert(`Contact name ${name} already exists!`);
       resetForm();
       return;
